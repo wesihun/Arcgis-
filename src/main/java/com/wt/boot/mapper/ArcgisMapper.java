@@ -1,0 +1,156 @@
+package com.wt.boot.mapper;
+
+import com.wt.boot.pojo.*;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+@Mapper
+public interface ArcgisMapper
+{
+    @Select("select dlbm, substring(dlbm from 1 for 2) as firstcategory,sum(tbmj)/666.67 as area, dlmc from ${tablename} group by firstcategory, dlbm, dlmc having dlbm in (${sqlIn}) ")
+    public List<DltbArea> getDltbArea(@Param("sqlIn") String sqlIn,@Param("tablename") String tablename);//根类统计二级分类面积
+
+    @Select("select dlbm, substring(dlbm from 1 for 2) as firstcategory,sum(tbmj)/666.67 as area, dlmc from ${tablename} where qsdwdm like CONCAT(#{provenceCode},'%') group by firstcategory, dlbm, dlmc having dlbm in (${sqlIn})")
+    public List<DltbArea> getDltbAreaByprovenceCode(@Param("sqlIn") String sqlIn, @Param("provenceCode") String provenceCode,@Param("tablename") String tablename);//根类统计二级分类面积,根据行政区划代码
+
+    @Select("select objectid,bsm,ysdm,dlbm,qsdwdm,qsdwmc from ${tablename} where dlbm in(${sqlIn}) ")
+    public List<DLTB> getDLTB(@Param("sqlIn") String sqlIn, @Param("tablename") String tablename);//根类二级分类获取所有图斑
+
+    @Select("select objectid,bsm,ysdm,dlbm,qsdwdm,qsdwmc from ${tablename} where dlbm in(${sqlIn}) and qsdwdm like CONCAT(#{provenceCode},'%')")
+    public List<DLTB> getDLTBWidthCounctry(@Param("sqlIn") String sqlIn, @Param("provenceCode") String provenceCode, @Param("tablename") String tablename);//根类二级分类获取所有图斑，行政区划
+
+    @Select("select dlbm, substring(dlbm from 1 for 2) as firstcategory,sum(tbmj)/666.67 as area, dlmc from ${tablename} where qsdwdm like CONCAT(#{provenceCode},'%') group by firstcategory, dlbm, dlmc ")
+    public List<DltbArea> getAllDltbAreaByprovenceCode(@Param("provenceCode") String provenceCode, @Param("tablename") String tablename);//根类统计二级分类面积,根据行政区划代码
+
+
+
+    @Select("select * from ${table}  ")
+    public List<CCWJQ> getCCWJQ(@Param("table") String table);//拆除未尽区
+
+    @Select("select * from ${table} ")
+    public List<CZCDYD> getCZCDYD(@Param("table") String table);
+
+    @Select("select * from ${table}  ")
+    public List<CJDCQJX> getCJDCQJX(@Param("table") String table);
+
+    @Select("select * from ${table}  ")
+    public List<XZQ> getXZQ(@Param("table") String table);
+
+    @Select("select * from ${table}  ")
+    public List<GJGY> getGJGY(@Param("table") String table);
+
+    @Select("select * from ${table}  ")
+    public List<KFYQ> getKFYQ(@Param("table") String table);
+
+    @Select("select * from ${table}  ")
+    public List<LSYD> getLSYD(@Param("table") String table);
+
+    @Select("select * from ${table} limit 1000 OFFSET 0")
+    public List<PDT> getPDT(@Param("table") String table);
+
+    @Select("select * from ${table}  ")
+    public List<SDGY> getSDGY(@Param("table") String table);
+
+    @Select("select * from ${table} ")
+    public List<SLGY> getSLGY(@Param("table") String table);
+
+    @Select("select * from ${table}  ")
+    public List<STBHHX> getSTBHHX(@Param("table") String table);
+
+    @Select("select * from ${table}  ")
+    public List<TTQ> getTTQ(@Param("table") String table);
+
+    @Select("select * from ${table}  ")
+    public List<XZQJX> getXZQJX(@Param("table") String tableL);
+
+    @Select("select * from ${table}  ")
+    public List<YJJBNTTB> getYJJBNTTB(@Param("table") String table);
+
+    @Select("select * from ${table} ")
+    public List<ZRBHQ> getZRBHQ(@Param("table") String table);
+
+    @Select("select * from ${table}  ")
+    public List<DLTB> getDltb(@Param("table") String table);
+
+
+
+    @Select("select count(*) from ${table} ${whereSQL}")//根据条件查询总记录数，没条件传""
+    public int getLayerTotalRecord(@Param("table") String table, @Param("whereSQL") String whereSQL);//拆除未尽区
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //----------------------------------分页方案--------------------------------------
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<CCWJQ> getCCWJQ_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);//拆除未尽区
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<CZCDYD> getCZCDYD_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<CJDCQJX> getCJDCQJX_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<XZQ> getXZQ_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<GJGY> getGJGY_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<KFYQ> getKFYQ_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<LSYD> getLSYD_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<PDT> getPDT_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<SDGY> getSDGY_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<SLGY> getSLGY_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<STBHHX> getSTBHHX_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<TTQ> getTTQ_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<XZQJX> getXZQJX_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<YJJBNTTB> getYJJBNTTB_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<ZRBHQ> getZRBHQ_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL}  ${limitSQL} ")
+    public List<DLTB> getDltb_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+
+
+
+    @Select("select * from ${tablename} where qsdwmc like '%${qsdwmc}%' ")
+    public List<DLTB> getDLTB_by_qsdwmc(@Param("qsdwmc") String qsdwmc, @Param("tablename") String tablename);//根类权属单位名称获取所有图斑，2021年4月16日需求
+
+
+
+
+
+}
