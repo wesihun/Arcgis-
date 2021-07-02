@@ -89,7 +89,7 @@ public class MyController {
     public String exportReportPDF(String jsonMenue, String proviceCode, String rightMenueName, String menuename,String tablename, String unit){//导出报表
         String firstFilename = config.getFile_dir();
         String lastFilename = new Date().getTime()+".pdf";
-        String province = "集贤县";
+        String province = "杜蒙";
         String coutry="";
         String DLCategory=menuename;
 
@@ -461,4 +461,10 @@ public class MyController {
 
 
 
+
+
 }
+
+
+
+
