@@ -216,7 +216,7 @@ public class MyController {
         List<DltbArea> dltbAreas;
 
         if(proviceCode.equals("000000")) {//集贤县
-            proviceCode = "230521";
+            proviceCode = "230624";
         }
 
         dltbAreas = arcgisMapper.getAllDltbAreaByprovenceCode(proviceCode,tablename);
