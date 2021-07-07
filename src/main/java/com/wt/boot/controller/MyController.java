@@ -215,7 +215,7 @@ public class MyController {
 
         List<DltbArea> dltbAreas;
 
-        if(proviceCode.equals("000000")) {//集贤县
+        if(proviceCode.equals("000000")) {//杜蒙县
             proviceCode = "230624";
         }
 
